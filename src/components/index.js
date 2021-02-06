@@ -18,12 +18,14 @@ export const RutValidator = props => {
         var tmp = rutCompleto.split('-')
         var digv = tmp[1]
         var rut = tmp[0]
+        // eslint-disable-next-line eqeqeq
         if (digv == 'K') digv = 'k'
+        // eslint-disable-next-line eqeqeq
         return validator.dv(rut) == digv
       },
       dv: T => {
-        var M = 0,
-          S = 1
+        let M = 0
+        let S = 1
         for (; T; T = Math.floor(T / 10))
           S = (S + (T % 10) * (9 - (M++ % 6))) % 11
         return S ? S - 1 : 'k'
@@ -35,7 +37,7 @@ export const RutValidator = props => {
       setValid(result)
     } else if (rutInput.length > 0 && rutInput.length < 10) {
       setValid(false)
-    } else if (rutInput.length == 0) {
+    } else if (rutInput.length === 0) {
       setValid(false)
       setMessage(null)
     }
@@ -44,9 +46,10 @@ export const RutValidator = props => {
   }
 
   useEffect(() => {
+    // eslint-disable-next-line no-unused-expressions
     valid
       ? setMessage(successMessage)
-      : valid == false
+      : valid === false
       ? setMessage(errorMessage)
       : ''
   }, [valid])
@@ -56,7 +59,7 @@ export const RutValidator = props => {
       <Wrapper border={border} txtColor={color} className={className}>
         <div className='holder'>
           <input type='text' onChange={e => validate(e.target.value)} />
-          {valid && <i className={`fa ${valid ? 'fa-check' : 'fa-close'}`}></i>}
+          {valid && <i className={`fa ${valid ? 'fa-check' : 'fa-close'}`} />}
         </div>
         {message && (
           <span className={valid ? 'success' : 'error'}>{message}</span>

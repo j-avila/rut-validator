@@ -14,7 +14,7 @@ const Theme = ({ children }) => (
     <Helmet>
       <script
         src='https://kit.fontawesome.com/acc0890c64.js'
-        crossorigin='anonymous'
+        crossOrigin='anonymous'
       />
     </Helmet>
     <ThemeProvider theme={defaultTheme}>

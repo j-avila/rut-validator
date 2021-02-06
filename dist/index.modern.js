@@ -1098,7 +1098,7 @@ const Theme = ({
   children
 }) => /*#__PURE__*/React.createElement(Fragment$1, null, /*#__PURE__*/React.createElement(Helmet, null, /*#__PURE__*/React.createElement("script", {
   src: "https://kit.fontawesome.com/acc0890c64.js",
-  crossorigin: "anonymous"
+  crossOrigin: "anonymous"
 })), /*#__PURE__*/React.createElement(ThemeProvider, {
   theme: defaultTheme
 }, /*#__PURE__*/React.createElement(GlobalStyles, null), children));
@@ -1163,8 +1163,8 @@ const RutValidator = props => {
         return validator.dv(rut) == digv;
       },
       dv: T => {
-        var M = 0,
-            S = 1;
+        let M = 0;
+        let S = 1;
 
         for (; T; T = Math.floor(T / 10)) S = (S + T % 10 * (9 - M++ % 6)) % 11;
 
@@ -1177,14 +1177,14 @@ const RutValidator = props => {
       setValid(result);
     } else if (rutInput.length > 0 && rutInput.length < 10) {
       setValid(false);
-    } else if (rutInput.length == 0) {
+    } else if (rutInput.length === 0) {
       setValid(false);
       setMessage(null);
     }
   };
 
   useEffect(() => {
-    valid ? setMessage(successMessage) : valid == false ? setMessage(errorMessage) : '';
+    valid ? setMessage(successMessage) : valid === false ? setMessage(errorMessage) : '';
   }, [valid]);
   return /*#__PURE__*/React.createElement(Theme, null, /*#__PURE__*/React.createElement(Wrapper, {
     border: border,
