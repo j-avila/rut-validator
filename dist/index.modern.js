@@ -1079,66 +1079,82 @@ if (process.env.NODE_ENV !== 'production') {
 }
 });
 
-function _taggedTemplateLiteralLoose(strings, raw) {
-  if (!raw) {
-    raw = strings.slice(0);
-  }
-
-  strings.raw = raw;
-  return strings;
-}
-
-var defaultTheme = {
+const defaultTheme = {
   fontSize: '13px',
   main: '#f5f5f5',
   secondary: '#9e9e9e',
   text: '#202020'
 };
 
-var _templateObject;
-var GlobalStyles = createGlobalStyle(_templateObject || (_templateObject = _taggedTemplateLiteralLoose(["\n  body{\n    font-family: 'Roboto', 'Sans-serif';\n  }\n"])));
+let _ = t => t,
+    _t;
+const GlobalStyles = createGlobalStyle(_t || (_t = _`
+  body{
+    font-family: 'Roboto', 'Sans-serif';
+  }
+`));
 
-var Theme = function Theme(_ref) {
-  var children = _ref.children;
-  return /*#__PURE__*/React.createElement(Fragment$1, null, /*#__PURE__*/React.createElement(Helmet, null, /*#__PURE__*/React.createElement("script", {
-    src: "https://kit.fontawesome.com/acc0890c64.js",
-    crossorigin: "anonymous"
-  })), /*#__PURE__*/React.createElement(ThemeProvider, {
-    theme: defaultTheme
-  }, /*#__PURE__*/React.createElement(GlobalStyles, null), children));
-};
+const Theme = ({
+  children
+}) => /*#__PURE__*/React.createElement(Fragment$1, null, /*#__PURE__*/React.createElement(Helmet, null, /*#__PURE__*/React.createElement("script", {
+  src: "https://kit.fontawesome.com/acc0890c64.js",
+  crossorigin: "anonymous"
+})), /*#__PURE__*/React.createElement(ThemeProvider, {
+  theme: defaultTheme
+}, /*#__PURE__*/React.createElement(GlobalStyles, null), children));
 
-var _templateObject$1;
-var Wrapper = styled.div(_templateObject$1 || (_templateObject$1 = _taggedTemplateLiteralLoose(["\n  display: inline-block;\n  .holder {\n    border: ", ";\n    background: ", ";\n    color: ", ";\n    padding: 6px 8px;\n    input {\n      border: 0;\n      &:focus {\n        outline: -webkit-focus-ring-color auto 0px;\n      }\n    }\n    i {\n      color: olivedrab;\n    }\n  }\n  span {\n    display: inline-block;\n    margin: 1rem 0;\n    &.success {\n      color: olivedrab;\n    }\n    &.error {\n      color: tomato;\n    }\n  }\n"])), function (_ref) {
-  var border = _ref.border;
-  return border;
-}, function (_ref2) {
-  var background = _ref2.background;
-  return background;
-}, function (_ref3) {
-  var txtColor = _ref3.txtColor;
-  return txtColor;
-});
+let _$1 = t => t,
+    _t$1;
+const Wrapper = styled.div(_t$1 || (_t$1 = _$1`
+  display: inline-block;
+  .holder {
+    border: ${0};
+    background: ${0};
+    color: ${0};
+    padding: 6px 8px;
+    input {
+      border: 0;
+      &:focus {
+        outline: -webkit-focus-ring-color auto 0px;
+      }
+    }
+    i {
+      color: olivedrab;
+    }
+  }
+  span {
+    display: inline-block;
+    margin: 1rem 0;
+    &.success {
+      color: olivedrab;
+    }
+    &.error {
+      color: tomato;
+    }
+  }
+`), ({
+  border
+}) => border, ({
+  background
+}) => background, ({
+  txtColor
+}) => txtColor);
 
-var RutValidator = function RutValidator(props) {
-  var border = props.border,
-      color = props.color,
-      errorMessage = props.errorMessage,
-      successMessage = props.successMessage,
-      className = props.className;
+const RutValidator = props => {
+  const {
+    border,
+    color,
+    errorMessage,
+    successMessage,
+    className
+  } = props;
+  const [message, setMessage] = useState(null);
+  const [valid, setValid] = useState(undefined);
 
-  var _useState = useState(null),
-      message = _useState[0],
-      setMessage = _useState[1];
-
-  var _useState2 = useState(undefined),
-      valid = _useState2[0],
-      setValid = _useState2[1];
-
-  var validate = function validate(rutInput) {
-    var result;
-    var validator = {
-      validaRut: function validaRut(rutCompleto) {
+  const validate = rutInput => {
+    let result;
+    const validator = {
+      validaRut: rutCompleto => {
         if (!/^[0-9]+[-|‐]{1}[0-9kK]{1}$/.test(rutCompleto)) return false;
         var tmp = rutCompleto.split('-');
         var digv = tmp[1];
@@ -1146,13 +1162,11 @@ var RutValidator = function RutValidator(props) {
         if (digv == 'K') digv = 'k';
         return validator.dv(rut) == digv;
       },
-      dv: function dv(T) {
+      dv: T => {
         var M = 0,
             S = 1;
 
-        for (; T; T = Math.floor(T / 10)) {
-          S = (S + T % 10 * (9 - M++ % 6)) % 11;
-        }
+        for (; T; T = Math.floor(T / 10)) S = (S + T % 10 * (9 - M++ % 6)) % 11;
 
         return S ? S - 1 : 'k';
       }
@@ -1169,7 +1183,7 @@ var RutValidator = function RutValidator(props) {
     }
   };
 
-  useEffect(function () {
+  useEffect(() => {
     valid ? setMessage(successMessage) : valid == false ? setMessage(errorMessage) : '';
   }, [valid]);
   return /*#__PURE__*/React.createElement(Theme, null, /*#__PURE__*/React.createElement(Wrapper, {
@@ -1180,11 +1194,9 @@ var RutValidator = function RutValidator(props) {
     className: "holder"
   }, /*#__PURE__*/React.createElement("input", {
     type: "text",
-    onChange: function onChange(e) {
-      return validate(e.target.value);
-    }
+    onChange: e => validate(e.target.value)
   }), valid && /*#__PURE__*/React.createElement("i", {
-    className: "fa " + (valid ? 'fa-check' : 'fa-close')
+    className: `fa ${valid ? 'fa-check' : 'fa-close'}`
   })), message && /*#__PURE__*/React.createElement("span", {
     className: valid ? 'success' : 'error'
   }, message)));
@@ -1197,7 +1209,7 @@ RutValidator.propTypes = {
 };
 RutValidator.defaultProps = {
   background: defaultTheme.primary,
-  border: "1px solid " + defaultTheme.text,
+  border: `1px solid ${defaultTheme.text}`,
   color: defaultTheme.text,
   errorMessage: 'RUT no valido',
   successMessage: 'RUT Válido'
