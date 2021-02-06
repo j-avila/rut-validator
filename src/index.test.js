@@ -1,7 +1,7 @@
-import { ExampleComponent } from '.'
+import { RutValidator } from './components/index'
 
-describe('ExampleComponent', () => {
+describe('rutValidator', () => {
   it('is truthy', () => {
-    expect(ExampleComponent).toBeTruthy()
+    expect(RutValidator).toBeTruthy()
   })
 })
